@@ -1,0 +1,202 @@
+<section
+  id="reviews"
+  class="sec revband purelane-reviews"
+  data-section-id="{{ section.id }}"
+>
+  <div class="wrap">
+    <div class="revhead rv">
+      <span class="kicker">{{ section.settings.kicker }}</span>
+
+      <span class="agg">
+        <span class="st" aria-label="{{ section.settings.rating }} out of 5 stars">
+          ★★★★★
+        </span>
+        <b>{{ section.settings.rating }}</b>
+        from {{ section.settings.review_count }} reviews
+      </span>
+
+      <span class="agg">
+        Loved by <b>{{ section.settings.homes_count }}</b> homes
+      </span>
+    </div>
+  </div>
+
+  <div class="revrail rv" aria-label="Customer reviews">
+    <div class="revtrack">
+
+      {% for review in section.blocks %}
+        <article class="glass-2 rcard" {{ review.shopify_attributes }}>
+          <div class="st" aria-hidden="true">★★★★★</div>
+
+          <h5>{{ review.settings.title }}</h5>
+
+          <p>{{ review.settings.body }}</p>
+
+          <div class="who">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m5 13 4 4L19 7"/>
+            </svg>
+
+            <b>{{ review.settings.name }}</b>
+
+            {% if review.settings.product != blank %}
+              <span>· {{ review.settings.product }}</span>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+
+      {% for review in section.blocks %}
+        <article class="glass-2 rcard" aria-hidden="true">
+          <div class="st">★★★★★</div>
+
+          <h5>{{ review.settings.title }}</h5>
+
+          <p>{{ review.settings.body }}</p>
+
+          <div class="who">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m5 13 4 4L19 7"/>
+            </svg>
+
+            <b>{{ review.settings.name }}</b>
+
+            {% if review.settings.product != blank %}
+              <span>· {{ review.settings.product }}</span>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane Reviews",
+  "tag": "section",
+  "class": "purelane-reviews-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "That's what they said"
+    },
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Rating",
+      "default": "4.8"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review count",
+      "default": "8,000+"
+    },
+    {
+      "type": "text",
+      "id": "homes_count",
+      "label": "Homes count",
+      "default": "12 lakh+"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review title"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Review"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name"
+        },
+        {
+          "type": "text",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "title": "Works like a charm",
+            "body": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better.",
+            "name": "Anita",
+            "product": "Laundry detergent"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Best dishwash ever",
+            "body": "Our old dishwash left my help with dry, cracked skin. That stopped completely after we switched.",
+            "name": "Priya",
+            "product": "Dishwash gel"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Great product, great packaging",
+            "body": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic.",
+            "name": "Sunita",
+            "product": "Liquid handwash"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Dog friendly",
+            "body": "We switched because chemical floor cleaners were setting off my dog's allergies. No reactions since.",
+            "name": "Rohit S.",
+            "product": "Floor cleaner"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Sparkling taps again",
+            "body": "Hard water had ruined our bathroom fittings. Two sprays and the scale wipes straight off, no scrubbing.",
+            "name": "Verified buyer",
+            "product": "Tap cleaner"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
