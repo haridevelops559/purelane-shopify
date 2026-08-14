@@ -1,0 +1,335 @@
+<section id="bundles" class="sec purelane-bundles">
+  <div class="wrap">
+
+    <div class="glass sec-pad purelane-bundles__intro">
+      <div class="panel-head">
+        <span class="kicker">{{ section.settings.kicker }}</span>
+
+        <h2 class="d2">{{ section.settings.heading }}</h2>
+
+        {% if section.settings.description != blank %}
+          <p class="lede">{{ section.settings.description }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="tiers">
+      {% for block in section.blocks %}
+        {% liquid
+          assign product_1 = block.settings.product_1
+          assign product_2 = block.settings.product_2
+          assign product_3 = block.settings.product_3
+          assign product_4 = block.settings.product_4
+          assign product_5 = block.settings.product_5
+        %}
+
+        <article
+          class="glass tier{% if block.settings.featured %} best{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.tag != blank %}
+            <span class="tag">{{ block.settings.tag }}</span>
+          {% endif %}
+
+          <div class="tierpix{% if block.settings.product_count == 5 %} five{% endif %}">
+            {% if product_1 != blank and product_1.featured_image %}
+              {{
+                product_1.featured_image
+                | image_url: width: 240
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '120, 180, 240',
+                  sizes: '(min-width: 760px) 18vw, 70vw',
+                  class: 'pimg',
+                  alt: product_1.title
+              }}
+            {% endif %}
+
+            {% if product_2 != blank and product_2.featured_image %}
+              {{
+                product_2.featured_image
+                | image_url: width: 240
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '120, 180, 240',
+                  sizes: '(min-width: 760px) 18vw, 70vw',
+                  class: 'pimg',
+                  alt: product_2.title
+              }}
+            {% endif %}
+
+            {% if product_3 != blank and product_3.featured_image %}
+              {{
+                product_3.featured_image
+                | image_url: width: 240
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '120, 180, 240',
+                  sizes: '(min-width: 760px) 18vw, 70vw',
+                  class: 'pimg',
+                  alt: product_3.title
+              }}
+            {% endif %}
+
+            {% if product_4 != blank and product_4.featured_image %}
+              {{
+                product_4.featured_image
+                | image_url: width: 240
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '120, 180, 240',
+                  sizes: '(min-width: 760px) 18vw, 70vw',
+                  class: 'pimg',
+                  alt: product_4.title
+              }}
+            {% endif %}
+
+            {% if product_5 != blank and product_5.featured_image %}
+              {{
+                product_5.featured_image
+                | image_url: width: 240
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '120, 180, 240',
+                  sizes: '(min-width: 760px) 18vw, 70vw',
+                  class: 'pimg',
+                  alt: product_5.title
+              }}
+            {% endif %}
+          </div>
+
+          <div class="qty">
+            {{ block.settings.product_count }}
+            <small>{{ block.settings.quantity_label }}</small>
+          </div>
+
+          <div class="price">
+            {{ block.settings.price }}
+            {% if block.settings.compare_price != blank %}
+              <s>{{ block.settings.compare_price }}</s>
+            {% endif %}
+          </div>
+
+          {% if block.settings.price_note != blank %}
+            <p class="body-s purelane-bundles__price-note">
+              {{ block.settings.price_note }}
+            </p>
+          {% endif %}
+
+          <ul>
+            {% if block.settings.benefit_1 != blank %}
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path d="m5 13 4 4L19 7"/>
+                </svg>
+                {{ block.settings.benefit_1 }}
+              </li>
+            {% endif %}
+
+            {% if block.settings.benefit_2 != blank %}
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path d="m5 13 4 4L19 7"/>
+                </svg>
+                {{ block.settings.benefit_2 }}
+              </li>
+            {% endif %}
+
+            {% if block.settings.benefit_3 != blank %}
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path d="m5 13 4 4L19 7"/>
+                </svg>
+                {{ block.settings.benefit_3 }}
+              </li>
+            {% endif %}
+          </ul>
+
+          {% if block.settings.button_label != blank %}
+            <a
+              class="btn {% if block.settings.featured %}btn-primary{% else %}btn-ghost{% endif %}"
+              href="{{ block.settings.button_link | default: '#shop' }}"
+            >
+              {{ block.settings.button_label }}
+
+              {% if block.settings.featured %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path d="M5 12h13m-5-6 6 6-6 6"/>
+                </svg>
+              {% endif %}
+            </a>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane Bundles",
+  "tag": "section",
+  "class": "purelane-bundles-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Build your bundle"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "One box. Every room."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle",
+      "name": "Bundle",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "default": "Starter"
+        },
+        {
+          "type": "range",
+          "id": "product_count",
+          "label": "Product count",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "text",
+          "id": "quantity_label",
+          "label": "Quantity label",
+          "default": "Products"
+        },
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "product",
+          "id": "product_4",
+          "label": "Product 4"
+        },
+        {
+          "type": "product",
+          "id": "product_5",
+          "label": "Product 5"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Bundle price",
+          "default": "₹349"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare price",
+          "default": "₹598"
+        },
+        {
+          "type": "text",
+          "id": "price_note",
+          "label": "Price note",
+          "default": "Flat ₹174 per product"
+        },
+        {
+          "type": "text",
+          "id": "benefit_1",
+          "label": "Benefit 1",
+          "default": "Pick any two products"
+        },
+        {
+          "type": "text",
+          "id": "benefit_2",
+          "label": "Benefit 2",
+          "default": "Free shipping across India"
+        },
+        {
+          "type": "text",
+          "id": "benefit_3",
+          "label": "Benefit 3"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Build this box"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Featured bundle",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane Bundles",
+      "blocks": [
+        {
+          "type": "bundle"
+        },
+        {
+          "type": "bundle"
+        },
+        {
+          "type": "bundle",
+          "settings": {
+            "tag": "Whole home",
+            "product_count": 5,
+            "price": "₹799",
+            "compare_price": "₹1495",
+            "price_note": "Flat ₹160 per product",
+            "benefit_1": "Pick any five products",
+            "benefit_2": "Every room in one order",
+            "benefit_3": "Free shipping across India"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
