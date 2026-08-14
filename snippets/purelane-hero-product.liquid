@@ -1,0 +1,12 @@
+{% if product != blank and product.featured_image != blank %}
+  {{
+    product.featured_image
+    | image_url: width: 900
+    | image_tag:
+      class: 'hp pimg ' | append: class,
+      loading: 'eager',
+      widths: '360, 540, 720, 900',
+      sizes: '(min-width: 990px) 45vw, 90vw',
+      alt: product.featured_image.alt | default: product.title
+  }}
+{% endif %}
