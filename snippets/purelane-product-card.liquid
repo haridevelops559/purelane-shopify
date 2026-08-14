@@ -1,0 +1,84 @@
+<article class="glass card purelane-product-card">
+
+  <div class="shot">
+    {% if product.available == false %}
+      <span class="pill">Sold out</span>
+    {% elsif product.tags contains 'new' %}
+      <span class="pill">New</span>
+    {% elsif product.tags contains 'top-rated' %}
+      <span class="pill">Top rated</span>
+    {% else %}
+      <span class="pill">Best seller</span>
+    {% endif %}
+
+    {% if product.featured_image %}
+      {{
+        product.featured_image
+        | image_url: width: 600
+        | image_tag:
+          loading: 'lazy',
+          widths: '240, 360, 480, 600',
+          sizes: '(min-width: 860px) 25vw, 50vw',
+          class: 'purelane-product-image',
+          alt: product.featured_image.alt | default: product.title
+      }}
+    {% else %}
+      <div class="purelane-product-placeholder" aria-hidden="true">
+        <span>Purelane</span>
+      </div>
+    {% endif %}
+  </div>
+
+  <h4>
+    <a href="{{ product.url }}">
+      {{ product.title }}
+    </a>
+  </h4>
+
+  {% assign rating = product.metafields.reviews.rating.value %}
+  {% assign review_count = product.metafields.reviews.rating_count.value %}
+
+  {% if rating != blank %}
+    <div class="rate">
+      <b>★ {{ rating }}</b>
+      {% if review_count != blank %}
+        · {{ review_count }} reviews
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="pr">
+    <strong>{{ product.price | money }}</strong>
+
+    {% if product.compare_at_price > product.price %}
+      <s>{{ product.compare_at_price | money }}</s>
+
+      {% assign savings = product.compare_at_price | minus: product.price %}
+      {% assign savings_percent = savings | times: 100 | divided_by: product.compare_at_price %}
+
+      <em>{{ savings_percent }}% off</em>
+    {% endif %}
+  </div>
+
+  {% if product.available %}
+    <form method="post" action="{{ routes.cart_add_url }}">
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <button
+        type="submit"
+        class="btn btn-ghost btn-sm"
+        aria-label="Add {{ product.title }} to cart"
+      >
+        Add to cart
+      </button>
+    </form>
+  {% else %}
+    <button
+      type="button"
+      class="btn btn-ghost btn-sm"
+      disabled
+    >
+      Sold out
+    </button>
+  {% endif %}
+
+</article>
