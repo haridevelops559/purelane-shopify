@@ -1,9 +1,11 @@
 {% if product != blank and product.featured_image != blank %}
+  {% assign hero_class = 'hp pimg ' | append: class %}
+
   {{
     product.featured_image
     | image_url: width: 900
     | image_tag:
-      class: 'hp pimg ' | append: class,
+      class: hero_class,
       loading: 'eager',
       widths: '360, 540, 720, 900',
       sizes: '(min-width: 990px) 45vw, 90vw',
